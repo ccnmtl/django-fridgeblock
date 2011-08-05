@@ -1,0 +1,125 @@
+{% load hhphelpers %}
+
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+<link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/css" media="all" /> 
+<link rel="stylesheet" href="/site_media/fridge/fridge.css" type="text/css" media="all" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" ></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/jquery-ui.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script> 
+
+<script type="text/javascript">
+{% if not request.user.is_anonymous %}
+	var saveURL = "{% url fridge-save-magnet block.id %}";
+	var deleteURL = "{% url fridge-delete-magnet block.id %}";
+{% else %}
+	var saveURL = "dummy";
+	var deleteURL = "dummy";
+{% endif %}
+</script>
+
+
+<script src="/site_media/fridge/fridge.js" type="text/javascript"></script>
+<script src="/site_media/fridge/fridge-shared.js" type="text/javascript"></script>
+{% getsession block as session %}
+	<div id="plan-container">
+	<div id="plan-container-inner">
+
+		<div id="content-container">
+
+			<div id="categories">
+
+				<div id="categorytabs">
+					<ul>
+					{% for category in block.categories %}
+					<li><a href="#category-{{forloop.counter}}">{{category.label}}</a></li>
+					{% endfor %}
+					</ul>
+				</div>
+
+				{% for category in block.categories %}
+				<div id="category-{{forloop.counter}}" style="height: 440px; overflow: auto;">
+
+
+						{% for item in category.item_set.all %}
+
+
+						{% if_magnet_for_item_exists session item %}
+						<div id="item-{{item.id}}-grabber"class="grabber grabber-in-menu {{item.category.css}} grabber-disabled">
+							<span id="item-{{item.id}}-label" class="label {% if_magnet_for_item_exists session item %}disabled{%else%}{% endif_magnet_for_item_exists %}">{{item.label}}</span>
+						</div>
+						
+						{% else %}
+						<div id="item-{{item.id}}-grabber" class="grabber grabber-in-menu {{item.category.css}}">
+							<span id="item-{{item.id}}-label" class="label {% if_magnet_for_item_exists session item %}disabled{%else%}{% endif_magnet_for_item_exists %}">{{item.label}}</span>
+						</div>
+	  
+						<div id="item-{{item.id}}-popup" class="magnet-popup">
+							<div class="magnet-popup-close"></div>
+							<strong>{{item.category}}</strong><br />
+							 I can beat diabetes by<br />
+							<strong  style="text-transform: lowercase;">{{item.label}}.</strong>
+							<div id="item-{{item.id}}-trash" class="magnet-trash"></div>
+						</div>
+						{% endif_magnet_for_item_exists %}
+
+
+
+
+						{% endfor %}
+
+
+
+
+					</div>
+				{% endfor %}
+				
+			</div>
+	
+		</div>
+
+		<div id="fridge">
+	
+			{% if session.magnet_set.count %}
+			{% for magnet in session.magnet_set.all %}
+	
+			<div id="item-{{magnet.item.id}}-magnet" class="magnet grabber {{magnet.item.category.css}}">
+			<span id="item-{{magnet.item.id}}-label" class="label">{{magnet.item.label}}</span>
+			</div>
+			
+			<div id="item-{{magnet.item.id}}-popup" class="magnet-popup">
+				<div class="magnet-popup-close"></div>
+				<strong>{{magnet.item.category}}</strong>
+				<br />
+				<br />
+				I can beat diabetes by<br />
+				<span style="text-transform: lowercase;">{{magnet.item.label}}.</span>
+				<div id="item-{{magnet.item.id}}-trash" class="magnet-trash"></div>
+			</div>
+	  
+			{% endfor %}
+			{% endif %}
+
+		</div>
+
+		<script type="text/javascript">
+	jQuery(function() {
+	{% for magnet in session.magnet_set.all %}    
+	    positionMagnet(jQuery("#item-{{magnet.item.id}}-magnet"),{{magnet.x}},{{magnet.y}});
+	{% endfor %}
+	});
+	jQuery(function() {
+	    jQuery( "#categories" ).tabs();
+	});
+	</script>
+
+	</div>
+	</div>
+
+</div>
+
+
+<br style="clear: both;"/>
+{% if request.user.is_anonymous %}
+<p class="warning">You are not logged in: Magnet positions will not be saved</p>
+{% endif %}
