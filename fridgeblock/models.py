@@ -46,12 +46,23 @@ class FridgeBlock(models.Model):
     def categories(self):
         return self.category_set.all()
 
-    def add_category_form(self,request=None):
-        return CategoryForm(request)
+    def add_category_form(self,request=None,files=None):
+        return CategoryForm(request,files)
 
 class Category(models.Model):
     fridgeblock = models.ForeignKey(FridgeBlock)
     label = models.CharField(max_length=256,default="")
+    image = ImageWithThumbnailsField(upload_to="images/fridge/categories/%Y/%m/%d",
+                                     thumbnail = {
+            'size' : (65,65)
+            },
+                                     extra_thumbnails={
+            'admin': {
+                'size': (70, 50),
+                'options': ('sharpen',),
+                }
+            })
+
 
     class Meta:
         order_with_respect_to = "fridgeblock"
@@ -65,8 +76,34 @@ class Category(models.Model):
     def edit_form(self,request=None):
         return CategoryForm(request,instance=self)
 
+    def edit(self,vals,files):
+        self.label = vals.get('label','')
+        if 'image' in files:
+            self.save_image(files['image'])
+        self.save()
+
     def add_item_form(self,request=None):
         return ItemForm(request)
+
+    def save_image(self,f):
+        ext = f.name.split(".")[-1].lower()
+        basename = slugify(f.name.split(".")[-2].lower())[:20]
+        if ext not in ['jpg','jpeg','gif','png']:
+            # unsupported image format
+            return None
+        now = datetime.now()
+        path = "images/fridge/categories/%04d/%02d/%02d/" % (now.year,now.month,now.day)
+        try:
+            os.makedirs(settings.MEDIA_ROOT + "/" + path)
+        except:
+            pass
+        full_filename = path + "%s.%s" % (basename,ext)
+        fd = open(settings.MEDIA_ROOT + "/" + full_filename,'wb')
+        for chunk in f.chunks():
+            fd.write(chunk)
+        fd.close()
+        self.image = full_filename
+        self.save()
 
 
 

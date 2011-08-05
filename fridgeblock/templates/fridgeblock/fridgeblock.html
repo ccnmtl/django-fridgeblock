@@ -1,4 +1,5 @@
 {% load hhphelpers %}
+{% load thumbnail %}
 
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/base/jquery-ui.css" type="text/css" media="all" /> 
 <link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/css" media="all" /> 
@@ -45,12 +46,19 @@
 
 
 						{% if_magnet_for_item_exists session item %}
-						<div id="item-{{item.id}}-grabber"class="grabber grabber-in-menu {{item.category.css}} grabber-disabled">
+						<div id="item-{{item.id}}-grabber"
+						     class="grabber
+							    grabber-in-menu
+							    {{item.category.css}}
+							    grabber-disabled"
+						     style="background-image: url('{% thumbnail item.category.image 52x52 %}')"
+>
 							<span id="item-{{item.id}}-label" class="label {% if_magnet_for_item_exists session item %}disabled{%else%}{% endif_magnet_for_item_exists %}">{{item.label}}</span>
 						</div>
 						
 						{% else %}
-						<div id="item-{{item.id}}-grabber" class="grabber grabber-in-menu {{item.category.css}}">
+						<div id="item-{{item.id}}-grabber"
+						     style="background-image: url('{% thumbnail item.category.image 52x52 %}')" class="grabber grabber-in-menu {{item.category.css}}">
 							<span id="item-{{item.id}}-label" class="label {% if_magnet_for_item_exists session item %}disabled{%else%}{% endif_magnet_for_item_exists %}">{{item.label}}</span>
 						</div>
 	  
@@ -83,7 +91,8 @@
 			{% if session.magnet_set.count %}
 			{% for magnet in session.magnet_set.all %}
 	
-			<div id="item-{{magnet.item.id}}-magnet" class="magnet grabber {{magnet.item.category.css}}">
+			<div id="item-{{magnet.item.id}}-magnet"
+			style="background-image: url('{% thumbnail magnet.item.category.image 52x52 %}')" class="magnet grabber {{magnet.item.category.css}}">
 			<span id="item-{{magnet.item.id}}-label" class="label">{{magnet.item.label}}</span>
 			</div>
 			

@@ -133,7 +133,7 @@ def edit_category(request,id):
 
 def add_category(request,id):
     fridge = get_object_or_404(FridgeBlock,id=id)
-    form = fridge.add_category_form(request.POST)
+    form = fridge.add_category_form(request.POST,request.FILES)
     if form.is_valid():
         layer = form.save(commit=False)
         layer.fridgeblock = fridge
