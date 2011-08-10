@@ -13,6 +13,8 @@ import os
 class FridgeBlock(models.Model):
     pageblocks = generic.GenericRelation(PageBlock)
     template_file = "fridgeblock/fridgeblock.html"
+    js_template_file = "fridgeblock/fridgeblock_js.html"
+    css_template_file = "fridgeblock/fridgeblock_css.html"
 
     display_name = "Fridge Block"
     

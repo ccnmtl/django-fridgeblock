@@ -1,0 +1,14 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" ></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/jquery-ui.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script> 
+<script type="text/javascript">
+{% if not request.user.is_anonymous %}
+	var saveURL = "{% url fridge-save-magnet block.id %}";
+	var deleteURL = "{% url fridge-delete-magnet block.id %}";
+{% else %}
+	var saveURL = "dummy";
+	var deleteURL = "dummy";
+{% endif %}
+</script>
+<script src="/site_media/fridge/fridge.js" type="text/javascript"></script>
+<script src="/site_media/fridge/fridge-shared.js" type="text/javascript"></script>
