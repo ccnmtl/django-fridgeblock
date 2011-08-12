@@ -51,6 +51,22 @@ class FridgeBlock(models.Model):
     def add_category_form(self,request=None,files=None):
         return CategoryForm(request,files)
 
+    @classmethod
+    def get_exporter(self,export_type):
+        e = Exporter()
+        return (e.identifier,e.exporter)
+
+class Exporter(object):
+    block_class = FridgeBlock
+    identifier = 'fridge'
+
+    def exporter(self, block, xmlfile, zipfile):
+        pass
+
+    def importer(self, node, zipfile):
+        return None
+
+
 class Category(models.Model):
     fridgeblock = models.ForeignKey(FridgeBlock)
     label = models.CharField(max_length=256,default="")
