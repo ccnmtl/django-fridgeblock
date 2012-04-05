@@ -4,7 +4,7 @@ install as per usual for pageblocks:
 
 * install module
 * add to INSTALLED_APPS and PAGEBLOCKS:
-* add 'fridgeblock' to INSTALLED_APPS and add 'fridgeblock.firdgeblock' to PAGEBLOCKS
+* add 'fridgeblock' to INSTALLED_APPS and add 'fridgeblock.fridgeblock' to PAGEBLOCKS
 * add to urls.py:
 
     (r'^fridge/',include('fridgeblock.urls')),
