@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
 var saveOrder = function() {
-    var url = "{% url reorder-fridge-categories fridge.id %}?";
+    var url = "{% url 'reorder-fridge-categories' fridge.id %}?";
     var worktodo = 0;
     jQuery("#categories li").each(function(index,element) {
        worktodo = 1;
@@ -44,15 +44,15 @@ var saveOrder = function() {
 <ul id="categories" class="dragparent">
 {% for category in fridge.category_set.all %}
     <li class="draggable" id="category-{{category.id}}">
-    <span title="drag to reorder pageblocks" class="draghandle ui-icon ui-icon-arrowthick-2-n-s"></span>[<a href="{% url delete-fridge-category category.id %}">delete</a>] 
+    <span title="drag to reorder pageblocks" class="draghandle ui-icon ui-icon-arrowthick-2-n-s"></span>[<a href="{% url 'delete-fridge-category' category.id %}">delete</a>] 
     Category {{ category.display_number }}: 
-    <a href="{% url edit-fridge-category category.id %}">{{category.label|truncatewords:5}}</a>
+    <a href="{% url 'edit-fridge-category' category.id %}">{{category.label|truncatewords:5}}</a>
 </li>
 
 {% endfor %}
 </ul>
 
-<form action="{% url edit-fridge-add-category fridge.id %}"
+<form action="{% url 'edit-fridge-add-category' fridge.id %}"
       method="post" enctype="multipart/form-data">
 <h2>Add Category</h2>
 <table width="100%">

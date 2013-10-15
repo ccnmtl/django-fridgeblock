@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
 var saveOrder = function() {
-    var url = "{% url reorder-fridge-items category.id %}?";
+    var url = "{% url 'reorder-fridge-items' category.id %}?";
     var worktodo = 0;
     jQuery("#items li").each(function(index,element) {
        worktodo = 1;
@@ -39,7 +39,7 @@ var saveOrder = function() {
 {% endblock %}
 {% block content %}
 
-<h2><a href="{% url fridge-edit-categories category.fridgeblock.id %}">Fridge</a> Category {{category.display_number}}: {{ category.label }}</h2>
+<h2><a href="{% url 'fridge-edit-categories' category.fridgeblock.id %}">Fridge</a> Category {{category.display_number}}: {{ category.label }}</h2>
 
 <form action="." method="post">
 <table width="100%">
@@ -53,9 +53,9 @@ var saveOrder = function() {
 <ul class="dragparent" id="items">
 {% for item in category.item_set.all %}
 <li class="draggable" id="item-{{item.id}}">
-<span title="drag to reorder items" class="draghandle ui-icon ui-icon-arrowthick-2-n-s"></span>[<a href="{% url delete-fridge-item item.id %}">delete</a>] 
+<span title="drag to reorder items" class="draghandle ui-icon ui-icon-arrowthick-2-n-s"></span>[<a href="{% url 'delete-fridge-item' item.id %}">delete</a>] 
 Item {{ item.display_number }}: 
-<a href="{% url edit-fridge-item item.id %}">{{item.label}}</a></li>
+<a href="{% url 'edit-fridge-item' item.id %}">{{item.label}}</a></li>
 {% endfor %}
 </ul>
 {% endif %}

@@ -27,7 +27,7 @@ from setuptools import setup
 
 setup(
     name="django-fridgeblock",
-    version="0.3",
+    version="0.3.1",
     author="Anders Pearson",
     author_email="anders@columbia.edu",
     url="",
