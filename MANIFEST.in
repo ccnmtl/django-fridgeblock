@@ -1,1 +1,6 @@
 recursive-include fridgeblock/ *
+include fridgeblock/templates/fridgeblock/fridgeblock.html
+include fridgeblock/templates/fridgeblock/edit_category.html
+include fridgeblock/templates/fridgeblock/fridgeblock_css.html
+include fridgeblock/templates/fridgeblock/edit_categories.html
+include fridgeblock/templates/fridgeblock/fridgeblock_js.html
