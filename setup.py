@@ -27,7 +27,7 @@ from distutils.core import setup
 
 setup(
     name="django-fridgeblock",
-    version="0.3.1",
+    version="0.3.2",
     author="Anders Pearson",
     author_email="anders@columbia.edu",
     url="",
