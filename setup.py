@@ -23,7 +23,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from setuptools import setup
+from distutils.core import setup
 
 setup(
     name="django-fridgeblock",
@@ -33,14 +33,9 @@ setup(
     url="",
     description="Refrigerator Game PageBlock",
     long_description="(see django-pagetree and django-pageblocks)",
-    install_requires = [],
     scripts = [],
     license = "BSD",
     platforms = ["any"],
-    zip_safe=False,
     package_data = {'' : ['*.*']},
     packages=['fridgeblock'],
-    test_suite='nose.collector',
-    include_package_data=True,
-
-    )
+)
