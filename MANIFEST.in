@@ -1,18 +1,2 @@
-recursive-include fridgeblock/ *
-include fridgeblock/templates/fridgeblock/fridgeblock.html
-include fridgeblock/templates/fridgeblock/edit_category.html
-include fridgeblock/templates/fridgeblock/fridgeblock_css.html
-include fridgeblock/templates/fridgeblock/edit_categories.html
-include fridgeblock/templates/fridgeblock/fridgeblock_js.html
-include fridgeblock/templatetags/hhphelpers.py
-include fridgeblock/templatetags/__init__.py
-include fridgeblock/media/icon_close.png
-include fridgeblock/media/icon_delete.png
-include fridgeblock/media/fridge.css
-include fridgeblock/media/fridge.png
-include fridgeblock/media/fridge.js
-include fridgeblock/media/fridge-shared.js
-include fridgeblock/models.py
-include fridgeblock/__init__.py
-include fridgeblock/urls.py
-include fridgeblock/views.py
+recursive-include fridgeblock *
+
