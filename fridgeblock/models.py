@@ -1,7 +1,7 @@
 from django.db import models
 from pagetree.models import PageBlock
 from django.contrib.auth.models import User
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericRelation
 from django import forms
 from datetime import datetime
 from django.core.urlresolvers import reverse
@@ -11,7 +11,7 @@ from sorl.thumbnail.fields import ImageWithThumbnailsField
 import os
 
 class FridgeBlock(models.Model):
-    pageblocks = generic.GenericRelation(PageBlock)
+    pageblocks = GenericRelation(PageBlock)
     template_file = "fridgeblock/fridgeblock.html"
     js_template_file = "fridgeblock/fridgeblock_js.html"
     css_template_file = "fridgeblock/fridgeblock_css.html"
